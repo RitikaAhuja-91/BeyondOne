@@ -1,0 +1,33 @@
+﻿@using DancingGoat.InlineEditors
+@using DancingGoat.Widgets
+
+@model ImageWithTextWidgetViewModel
+<link href="~/content/styles/imagewithtext.css" rel="stylesheet" />
+
+
+@if (Context.Kentico().PageBuilder().EditMode)
+{
+    <vc:image-uploader image-type="@ImageTypeEnum.MediaFile" property-name="@nameof(HeroImageWidgetProperties.Image)"
+                   has-image="@(Model.DesktopImage != null)" message-position="@PanelPositionEnum.Top"
+                   use-absolute-position="true" />
+}
+
+<section class="image-with-text">
+
+    <div class="container">
+        <@Model.HeadlineType style="color:@Model.HeadlineColor">@Model.Headline</@Model.HeadlineType>
+        <div class="card">
+            <div class="content-container @Model.CardRatio">
+                <div class="text-content @(Model.ImageAlignment== "left"? "right": "left")">
+
+                    @Html.Raw(Model.Text)
+                </div>
+                <div class="media-content @Model.ImageAlignment">
+                    <img data-col="image" data-type="field" loading="lazy" src="@Model.DesktopImage" alt="@Model.AltText" class="image">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
